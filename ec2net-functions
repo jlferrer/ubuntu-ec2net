@@ -89,6 +89,8 @@ remove_primary() {
   fi
   rm -f ${config_file}
   rm -f ${dhclient_file}
+  sed -i "/${INTERFACE}/d" /etc/network/run/ifstate
+  rm -f /etc/network/run/ifup.${INTERFACE}
 }
 
 rewrite_primary() {
