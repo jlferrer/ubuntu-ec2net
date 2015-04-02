@@ -91,6 +91,7 @@ remove_primary() {
   rm -f ${dhclient_file}
   sed -i "/${INTERFACE}/d" /etc/network/run/ifstate
   rm -f /etc/network/run/ifup.${INTERFACE}
+  kill -TERM `cat /run/dhclient.${INTERFACE}.pid`
 }
 
 rewrite_primary() {
