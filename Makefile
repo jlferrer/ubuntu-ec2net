@@ -17,13 +17,13 @@ modes:
 	chmod 755 ec2net.hotplug
 	chown 0:0 53-ec2-network-interfaces.rules
 	chown 0:0 75-persistent-net-generator.rules
-	chown 0:0 ec2dhcp
+	chown 0:0 ec2dhcp.sh
 	chown 0:0 ec2net-functions
 	chown 0:0 ec2net.hotplug
 
 .PHONY: install
 install: modes
 	cp -a 53-ec2-network-interfaces.rules $(DEST)/etc/udev/rules.d/
-	cp -a ec2dhcp $(DEST)/etc/dhcp/dhclient-exit-hooks.d/
+	cp -a ec2dhcp.sh $(DEST)/etc/dhcp/dhclient-exit-hooks.d/
 	cp -a ec2net-functions $(DEST)/etc/sysconfig/network-scripts/
 	cp -a ec2net.hotplug $(DEST)/etc/sysconfig/network-scripts/
