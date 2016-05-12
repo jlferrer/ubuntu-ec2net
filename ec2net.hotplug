@@ -16,19 +16,24 @@
 # License.
 
 # During init and before the network service is started, metadata is not
-# available. Exit without attempting to configure the elastic interface
-# if eth0 isn't up yet.
-if [ ! -f /sys/class/net/eth0/operstate ] || ! grep 'up' /sys/class/net/eth0/operstate; then
+# available. Exit without attempting to configure the elastic interface.
+if [ `/sbin/runlevel | /usr/bin/cut -d\  -f2` -ne 5 ]; then
+  exit
+fi
+if [ -f /dev/.in_sysinit ]; then
   exit
 fi
 
-. /etc/network/ec2net-functions
+
+. /etc/sysconfig/network-scripts/ec2net-functions
 
 case $ACTION in
   add)
     plug_interface
+    activate_primary
     ;;
   remove)
+    deactivate_primary
     unplug_interface
     ;;
 esac

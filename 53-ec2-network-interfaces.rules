@@ -14,4 +14,4 @@
 # License.
 
 ACTION=="add", SUBSYSTEM=="net", KERNEL=="eth*", IMPORT{program}="/bin/sleep 1"
-SUBSYSTEM=="net", RUN+="/etc/network/ec2net.hotplug"
+SUBSYSTEM=="net", RUN+="/etc/sysconfig/network-scripts/ec2net.hotplug"

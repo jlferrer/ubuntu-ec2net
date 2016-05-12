@@ -14,9 +14,10 @@
 # OF ANY KIND, either express or implied. See the License for the
 # specific language governing permissions and limitations under the
 # License.
+
 INTERFACE="${interface}"
 PREFIX="${new_prefix}"
-. /etc/network/ec2net-functions
+. /etc/sysconfig/network-scripts/ec2net-functions
 
 ec2dhcp_config() {
   rewrite_rules
@@ -27,12 +28,3 @@ ec2dhcp_restore() {
   remove_aliases
   remove_rules
 }
-
-if [ "$reason" = "RELEASE" ]; then
-ec2dhcp_restore
-logger "restore $?"
-elif [ "$reason" = "BOUND" ] || [ "$reason" = "REBOOT" ] || [ "$reason" = "RENEW" ] || [ "$reason" = "REBIND" ] ; then 
-ec2dhcp_config
-else 
-logger "No action on $reason"
-fi
